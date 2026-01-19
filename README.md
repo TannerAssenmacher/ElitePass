@@ -15,3 +15,5 @@ A high-end password generator with a premium Dashlane-inspired interface. This e
 - **AI Integration**: Google Generative AI (Gemini SDK)
 - **Runtime**: Chrome Extension Manifest V3
 - **Icons**: Font Awesome 6
+![ChatGPT Image Jan 19, 2026, 02_31_03 PM (1)](https://github.com/user-attachments/assets/f3374125-e153-46d9-b8bb-0090a31c8d9e)
+<img width="128" height="128" alt="logo" src="https://github.com/user-attachments/assets/69fbf9b2-65d3-47cd-918d-9553e4f5dd52" />
