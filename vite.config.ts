@@ -38,6 +38,10 @@ export default defineConfig(({ mode }) => {
             {
               src: 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
               dest: 'webfonts'
+            },
+            {
+              src: 'assets/logo.png',
+              dest: '.'
             }
           ]
         })

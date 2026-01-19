@@ -1,44 +1,179 @@
 
 import { PasswordSettings } from './types';
 
-const ADJECTIVES = ['happy', 'brave', 'sunny', 'swift', 'cool', 'kind', 'bold', 'magic', 'wild', 'grand', 'fast', 'calm', 'smart', 'mega', 'super'];
-const NOUNS = ['dino', 'panda', 'tiger', 'wolf', 'eagle', 'bear', 'lion', 'hawk', 'fox', 'shark', 'whale', 'deer', 'cat', 'dog', 'bird'];
+// Rhyming word pairs for fun memorable passwords
+const RHYME_PAIRS = [
+  ['cat', 'hat'], ['cat', 'bat'], ['cat', 'rat'],
+  ['dog', 'fog'], ['dog', 'log'], ['dog', 'jog'],
+  ['bear', 'hair'], ['bear', 'care'], ['bear', 'dare'],
+  ['fox', 'box'], ['fox', 'rocks'], ['fox', 'socks'],
+  ['bee', 'tree'], ['bee', 'free'], ['bee', 'key'],
+  ['fish', 'wish'], ['fish', 'dish'], ['fish', 'swish'],
+  ['frog', 'blog'], ['frog', 'clog'],
+  ['mouse', 'house'], ['goat', 'boat'], ['goat', 'coat'],
+  ['snake', 'cake'], ['snake', 'lake'], ['snake', 'wake'],
+  ['whale', 'tale'], ['whale', 'sail'], ['whale', 'mail'],
+  ['fly', 'sky'], ['fly', 'pie'], ['fly', 'high'],
+  ['bug', 'hug'], ['bug', 'mug'], ['bug', 'rug'],
+  ['owl', 'howl'], ['crow', 'snow'], ['crow', 'glow'],
+];
+
+// Alliterative pairs (same starting letter)
+const ALLITERATIVE = [
+  ['brave', 'bear'], ['bold', 'bird'], ['big', 'bunny'],
+  ['crazy', 'cat'], ['cool', 'cobra'], ['calm', 'crab'],
+  ['dancing', 'dog'], ['daring', 'duck'], ['dizzy', 'dolphin'],
+  ['fancy', 'fox'], ['fast', 'frog'], ['fuzzy', 'fish'],
+  ['gentle', 'goat'], ['giant', 'gorilla'], ['groovy', 'gator'],
+  ['happy', 'hippo'], ['hungry', 'hawk'], ['hasty', 'hare'],
+  ['jazzy', 'jaguar'], ['jumpy', 'jellyfish'],
+  ['lucky', 'lion'], ['lazy', 'llama'], ['loud', 'lemur'],
+  ['magic', 'moose'], ['mighty', 'monkey'], ['merry', 'mouse'],
+  ['ninja', 'newt'], ['noble', 'narwhal'],
+  ['purple', 'panda'], ['proud', 'penguin'], ['party', 'parrot'],
+  ['quick', 'quail'], ['quiet', 'quokka'],
+  ['rapid', 'rabbit'], ['royal', 'raven'],
+  ['silly', 'shark'], ['super', 'snake'], ['swift', 'seal'],
+  ['tiny', 'tiger'], ['turbo', 'turtle'], ['tricky', 'toucan'],
+  ['wacky', 'wolf'], ['wild', 'whale'], ['wise', 'walrus'],
+  ['zany', 'zebra'], ['zippy', 'zebu'],
+];
+
+// Action verbs for story patterns
+const ACTIONS = ['runs', 'jumps', 'eats', 'sees', 'loves', 'hugs', 'finds', 'gets', 'wants', 'has'];
+const PLACES = ['moon', 'mars', 'park', 'beach', 'cloud', 'star', 'hill', 'cave', 'lake', 'city'];
+
+// Mini story templates: [subject, verb, object] patterns
+const STORY_TEMPLATES = [
+  ['cat', 'on', 'mat'], ['dog', 'in', 'fog'], ['frog', 'on', 'log'],
+  ['bear', 'eats', 'pear'], ['goat', 'in', 'boat'], ['mouse', 'in', 'house'],
+  ['fish', 'has', 'wish'], ['bee', 'is', 'free'], ['fly', 'in', 'sky'],
+  ['owl', 'can', 'howl'], ['fox', 'in', 'box'], ['bug', 'gets', 'hug'],
+];
+
+// Fun phrases that are easy to visualize
+const FUN_PHRASES = [
+  'CatInHat', 'DogOnLog', 'FoxInBox', 'BugInRug', 'FrogOnLog',
+  'BeeInTree', 'FlyInSky', 'BatInHat', 'RatInHat', 'GoatOnBoat',
+  'SnakeAtLake', 'FishMakeWish', 'BearWithHair', 'OwlCanHowl',
+  'CrowInSnow', 'MouseInHouse', 'WhaleWithTale', 'SnailOnTrail',
+];
+
+function randomChoice<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function generateMemorableBase(): string {
+  const pattern = Math.floor(Math.random() * 4);
+  
+  switch (pattern) {
+    case 0: {
+      // Rhyming pattern: "TheCatInTheHat" style
+      const [word1, word2] = randomChoice(RHYME_PAIRS);
+      const connectors = ['And', 'With', 'On', 'In', 'By'];
+      return capitalize(word1) + randomChoice(connectors) + capitalize(word2);
+    }
+    case 1: {
+      // Alliterative pattern: "BraveBear" style
+      const [adj, noun] = randomChoice(ALLITERATIVE);
+      return capitalize(adj) + capitalize(noun);
+    }
+    case 2: {
+      // Story pattern: "CatOnMat" style
+      const [subj, verb, obj] = randomChoice(STORY_TEMPLATES);
+      return capitalize(subj) + capitalize(verb) + capitalize(obj);
+    }
+    case 3:
+    default: {
+      // Double alliterative: "BraveBearBigBox"
+      const [adj1, noun1] = randomChoice(ALLITERATIVE);
+      const [adj2, noun2] = randomChoice(ALLITERATIVE);
+      return capitalize(adj1) + capitalize(noun1) + capitalize(adj2) + capitalize(noun2);
+    }
+  }
+}
 
 export const generatePassword = (settings: PasswordSettings): string => {
   if (settings.funToType) {
-    let base = '';
+    const symbolChars = '!@#$%^&*';
+    const numberChars = '0123456789';
+    const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     
-    // Pick an initial adjective
-    base += ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
-    
-    // Add nouns or adjectives until we are very close to the target length
-    while (base.length < settings.length - 4) {
-      const useNoun = Math.random() > 0.5;
-      const list = useNoun ? NOUNS : ADJECTIVES;
-      base += list[Math.floor(Math.random() * list.length)];
+    // Calculate required suffix length for guaranteed characters
+    let requiredSuffix = '';
+    if (settings.numbers) {
+      requiredSuffix += numberChars[Math.floor(Math.random() * numberChars.length)];
+      requiredSuffix += numberChars[Math.floor(Math.random() * numberChars.length)];
     }
-
-    // Add a 2-digit number
-    base += (Math.floor(Math.random() * 89) + 10).toString();
-    
     if (settings.symbols) {
-      const symbols = '!@#$%^&*';
-      base += symbols[Math.floor(Math.random() * symbols.length)];
+      requiredSuffix += symbolChars[Math.floor(Math.random() * symbolChars.length)];
     }
-
-    if (settings.uppercase) {
-      base = base.charAt(0).toUpperCase() + base.slice(1);
-    }
-
-    // Final minor padding or trimming to hit the exact requested length
-    if (base.length < settings.length) {
-      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-      while (base.length < settings.length) {
-        base += chars[Math.floor(Math.random() * chars.length)];
+    
+    const reservedLength = requiredSuffix.length;
+    const availableForPhrase = settings.length - reservedLength;
+    
+    // Generate memorable base - try multiple times to get a good fit
+    let base = '';
+    let attempts = 0;
+    const maxAttempts = 10;
+    
+    while (attempts < maxAttempts) {
+      const candidate = generateMemorableBase();
+      
+      // If this is the first phrase and it fits in available space, use it
+      if (base === '' && candidate.length <= availableForPhrase) {
+        base = candidate;
       }
-    } else if (base.length > settings.length) {
-      base = base.substring(0, settings.length);
+      // If adding another phrase still fits within available space, add it
+      else if (base !== '' && (base + candidate).length <= availableForPhrase) {
+        base += candidate;
+      }
+      // If we have something and adding more would exceed, stop trying
+      else if (base !== '') {
+        break;
+      }
+      
+      attempts++;
     }
+    
+    // If we still have nothing (very short password requested), use shortest possible
+    if (base === '') {
+      const shortPhrases = ['CatHat', 'DogFog', 'FoxBox', 'BeeKey', 'BugHug', 'Cat', 'Dog', 'Fox'];
+      for (const phrase of shortPhrases) {
+        if (phrase.length <= availableForPhrase) {
+          base = phrase;
+          break;
+        }
+      }
+    }
+
+    // Apply case transformations to the phrase
+    if (!settings.uppercase && settings.lowercase) {
+      base = base.toLowerCase();
+    } else if (settings.uppercase && !settings.lowercase) {
+      base = base.toUpperCase();
+    }
+
+    // Build padding pool for any remaining gap (between phrase and required suffix)
+    let paddingChars = '';
+    if (settings.numbers) paddingChars += numberChars;
+    if (settings.symbols) paddingChars += symbolChars;
+    if (settings.lowercase) paddingChars += lowercaseChars;
+    if (settings.uppercase) paddingChars += uppercaseChars;
+    if (paddingChars.length === 0) paddingChars = lowercaseChars;
+
+    // Fill any gap between phrase and required suffix
+    while (base.length < availableForPhrase) {
+      base += paddingChars[Math.floor(Math.random() * paddingChars.length)];
+    }
+    
+    // Append the guaranteed required characters (numbers + symbols)
+    base += requiredSuffix;
     
     return base;
   }

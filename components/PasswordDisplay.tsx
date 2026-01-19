@@ -53,26 +53,26 @@ const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGeneratin
   };
 
   return (
-    <div className="relative group">
-      <div className="w-full bg-slate-900/50 rounded-xl p-3 border border-slate-700/50 flex flex-col items-center justify-center min-h-[70px] transition-all duration-300 hover:border-orange-500/50">
-        <div className="mono text-xl md:text-2xl font-bold tracking-wider text-orange-400 break-all text-center">
-          {displayText || '••••••••'}
+    <div className="relative">
+      <div className="relative group">
+        <div className="w-full bg-slate-900/50 rounded-xl p-3 border border-slate-700/50 flex flex-col items-center justify-center min-h-[70px] transition-all duration-300 hover:border-orange-500/50">
+          <div className="mono text-xl md:text-2xl font-bold tracking-wider text-orange-400 break-all text-center">
+            {displayText || '••••••••'}
+          </div>
+          
+          <button 
+            onClick={handleCopy}
+            className={`absolute top-2 right-2 p-2 rounded-lg transition-all duration-200 ${copied ? 'text-green-400' : 'text-slate-400 hover:text-white'}`}
+            title="Copy Password"
+          >
+            <i className={`fas ${copied ? 'fa-check' : 'fa-copy'}`}></i>
+          </button>
         </div>
-        
-        <button 
-          onClick={handleCopy}
-          className={`absolute top-2 right-2 p-2 rounded-lg transition-all duration-200 ${copied ? 'text-green-400' : 'text-slate-400 hover:text-white'}`}
-          title="Copy Password"
-        >
-          <i className={`fas ${copied ? 'fa-check' : 'fa-copy'}`}></i>
-        </button>
       </div>
       
-      {copied && (
-        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-semibold text-green-400 animate-bounce">
-          Copied to clipboard!
-        </div>
-      )}
+      <div className={`flex justify-center items-center h-4 pt-1 transition-all duration-300 ${copied ? 'opacity-100' : 'opacity-0'}`}>
+        <span className="text-xs font-semibold text-green-400">Copied to clipboard!</span>
+      </div>
     </div>
   );
 };

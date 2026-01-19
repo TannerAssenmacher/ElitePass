@@ -2,7 +2,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { PasswordSettings, SecurityReport } from './types';
 import { generatePassword } from './utils';
-import { analyzePassword } from './services/geminiService';
+import { analyzePassword } from './services/passwordAnalyzer';
 import PasswordDisplay from './components/PasswordDisplay';
 import SettingsControl from './components/SettingsControl';
 import SecurityInsight from './components/SecurityInsight';
@@ -52,22 +52,24 @@ const App: React.FC = () => {
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-orange-500/20 blur-[100px] rounded-full pointer-events-none"></div>
       <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
-      <header className="flex items-center justify-center mb-1">
+      <header className="flex items-center justify-center mb-1 -mt-1">
         <div className="flex items-center space-x-2">
-          <div className="bg-gradient-to-br from-orange-500 to-amber-600 p-2 rounded-xl shadow-lg animate-float">
-            <i className="fas fa-key text-white text-lg"></i>
+          <div className="bg-gradient-to-br from-orange-500 to-amber-600 p-1.5 rounded-lg shadow-md">
+            <i className="fas fa-shield-halved text-white text-sm"></i>
           </div>
-          <div>
-            <h1 className="text-xl font-bold tracking-tight text-white">ElitePass</h1>
-          </div>
+          <h1 className="text-base font-semibold tracking-wide text-slate-200">
+            Elite<span className="text-orange-400">Pass</span>
+          </h1>
         </div>
       </header>
 
-      <PasswordDisplay 
-        password={password} 
-        isGenerating={isGenerating} 
-        onCopy={() => {}}
-      />
+      <div className="mt-1">
+        <PasswordDisplay 
+          password={password} 
+          isGenerating={isGenerating} 
+          onCopy={() => {}}
+        />
+      </div>
 
       <SettingsControl settings={settings} setSettings={setSettings} />
 
