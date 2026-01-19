@@ -1,0 +1,11 @@
+
+{
+  "manifest_version": 3,
+  "name": "PyPass Elite",
+  "version": "1.0.0",
+  "description": "A high-end password generator with Dashlane-inspired UI, real-time Python code generation, and AI-powered security analysis.",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": []
+}

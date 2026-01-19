@@ -10,7 +10,10 @@ interface PasswordDisplayProps {
 const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGenerating, onCopy }) => {
   const [displayText, setDisplayText] = useState('');
   const [copied, setCopied] = useState(false);
-  const frameRef = useRef<number>();
+  
+  // Fix: useRef requires an initial value in some TypeScript configurations.
+  // Initializing with null as the default for the animation frame reference.
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (isGenerating) {
@@ -34,7 +37,10 @@ const PasswordDisplay: React.FC<PasswordDisplayProps> = ({ password, isGeneratin
       setDisplayText(password);
     }
     return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      // Fix: frameRef.current can be null, check before calling cancelAnimationFrame.
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+      }
     };
   }, [password, isGenerating]);
 

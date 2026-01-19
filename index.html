@@ -13,6 +13,9 @@
       font-family: 'Inter', sans-serif;
       background-color: #0f172a;
       color: #f8fafc;
+      width: 400px;
+      margin: 0;
+      overflow-x: hidden;
     }
     .mono {
       font-family: 'JetBrains+Mono', monospace;
@@ -49,7 +52,8 @@
 }
 </script>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-  <div id="root" class="w-full max-w-md"></div>
+<body class="p-0">
+  <div id="root"></div>
+  <script type="module" src="./index.tsx"></script>
 </body>
 </html>

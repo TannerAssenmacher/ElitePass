@@ -2,13 +2,14 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { SecurityReport } from "../types";
 
-// Always use the named parameter and directly use process.env.API_KEY per guidelines
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const analyzePassword = async (password: string): Promise<SecurityReport> => {
+  // Always initialize right before making an API call to ensure it uses the most up-to-date API key from process.env.API_KEY.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      // Upgraded to gemini-3-pro-preview as password security analysis involves technical reasoning (STEM task).
+      model: "gemini-3-pro-preview",
       contents: `Analyze the security of this password: "${password}". 
       Return the evaluation in a strict JSON format. Include a very short, one-line fun improvement tip.
       
@@ -29,7 +30,7 @@ export const analyzePassword = async (password: string): Promise<SecurityReport>
       }
     });
 
-    // The .text property is a getter that directly returns the string output.
+    // The .text property is a getter that directly returns the string output from the model.
     const resultText = response.text;
     if (!resultText) {
       throw new Error("Received empty response from the AI model");
@@ -37,7 +38,7 @@ export const analyzePassword = async (password: string): Promise<SecurityReport>
     return JSON.parse(resultText.trim());
   } catch (error) {
     console.error("Gemini Analysis Error:", error);
-    // Fallback if API fails
+    // Fallback if API fails to ensure the application remains functional.
     return {
       score: 50,
       strength: "Moderate",

@@ -1,20 +1,48 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# PyPass Elite Chrome Extension
 
-# Run and deploy your AI Studio app
+A high-end, AI-powered password generator with a premium Dashlane-inspired interface. This extension not only generates secure passwords but also provides a real-time security analysis using Google's Gemini AI and exports the generation logic as a standalone Python script.
 
-This contains everything you need to run your app locally.
+## 🚀 Features
 
-View your app in AI Studio: https://ai.studio/apps/drive/1TAAje6gVaTnSf9mtrT-w5PZtnWky-00Z
+- **AI Security Architect**: Real-time password strength analysis and "Time-to-Crack" estimates powered by `gemini-3-pro-preview`.
+- **Memorable Mode**: Generates secure yet easy-to-type word-based patterns.
+- **Python Implementation**: Live export of the generation algorithm as Python code for developers.
+- **Chrome Extension V3**: Built with the latest manifest standards.
+- **Premium UI**: Glassmorphism design with Tailwind CSS and Inter/JetBrains Mono typography.
 
-## Run Locally
+## 🛠️ Installation
 
-**Prerequisites:**  Node.js
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/pypass-elite.git
+   cd pypass-elite
+   ```
+2. **Setup**:
+   - Ensure you have your Google Gemini API Key ready.
+3. **Load in Chrome**:
+   - Open Chrome and navigate to `chrome://extensions/`.
+   - Enable **Developer mode** (top right toggle).
+   - Click **Load unpacked** and select this project folder.
 
+## 📖 How to Push to GitHub
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+If you've just created this project locally, follow these steps to push it to your own repository:
+
+1. Create a new repository on [GitHub](https://github.com/new).
+2. Initialize your local directory and push:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit: PyPass Elite Extension"
+   git branch -M main
+   git remote add origin https://github.com/your-username/your-repo-name.git
+   git push -u origin main
+   ```
+
+## 🏗️ Tech Stack
+
+- **Framework**: React 19
+- **Styling**: Tailwind CSS
+- **AI Integration**: Google Generative AI (Gemini SDK)
+- **Runtime**: Chrome Extension Manifest V3
+- **Icons**: Font Awesome 6
